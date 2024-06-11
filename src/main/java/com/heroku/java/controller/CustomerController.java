@@ -40,7 +40,7 @@ public class CustomerController {
             statement.setString(1, customer.getCustName());
             statement.setString(2, customer.getCustPassword());
             statement.setString(3, customer.getCustEmail());
-            statement.setString(4, customer.getCustPhoneNum());
+            statement.setString(4, customer.getCustPhonenum());
             statement.setString(5, customer.getCustAddress());
             statement.executeUpdate();
             System.out.println("Name: " + customer.getCustName());

@@ -167,6 +167,18 @@
             </div>
         </div>
     </form>
+
+    <form th:action="@{/addTickets}" modelAttribute="addTickets" th:objects = "${addTickets}" method="post">
+        <div>
+            <label for="ticketType">Ticket Type:</label>
+            <input type="text" id="ticketType" name="ticketType" placeholder="Ticket Type" required>
+        </div>
+        <div>
+            <label for="ticketPrice">Ticket Price:</label>
+            <input type="number" step="0.01" id="ticketPrice" name="ticketPrice" placeholder="Ticket Price" required>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
 </div>
 </body>
 </html>

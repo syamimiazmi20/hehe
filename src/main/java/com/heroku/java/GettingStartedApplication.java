@@ -31,7 +31,7 @@ public class GettingStartedApplication {
         public String addticket(){
             return "createBooking";
         }
-        @GetMapping("/customerRegister")
+        @GetMapping("/customer")
 public String customerRegister() {
     return "customerRegister";
 }

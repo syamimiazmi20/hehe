@@ -10,7 +10,7 @@ public class Customer{
     private String custphonenum;
     private String custaddress;
     private String custpassword;
-    private String custid;
+    private int custid;
     
     public Customer(){}
 
@@ -22,11 +22,11 @@ public class Customer{
         this.custname = custname;
     }
 
-    public String getCustID(){
+    public int getCustID(){
         return this.custid;
     }
 
-    public void setCustID(String custid){
+    public void setCustID(int custid){
         this.custid = custid;
     }
 

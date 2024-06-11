@@ -22,7 +22,7 @@ public class TicketController {
    
 
    @PostMapping("/addTickets")
-    public String addTicket(@ModelAttribute("ticket")ticket ticket ){
+    public String addTicket(@ModelAttribute("addticket")ticket tickets ){
        
 
         try {
@@ -30,8 +30,8 @@ public class TicketController {
                 String sql = "INSERT INTO public.ticket(tickettype,ticketprice) VALUES(?,?)";
                 final var statement = connection.prepareStatement(sql);
                 
-                String tickettype= ticket.getTicketType();
-                double ticketprice = ticket.getTicketPrice();
+                String tickettype= tickets.getTicketType();
+                double ticketprice = tickets.getTicketPrice();
                 
                 
                 statement.setString(1, tickettype);

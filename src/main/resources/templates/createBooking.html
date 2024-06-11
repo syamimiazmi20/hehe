@@ -152,10 +152,7 @@
 <h2 class="y">TICKET MANAGEMENT</h2>
     <div class="container">
         <div class="title">MANAGE TICKET</div>
-     <form th:action="@{/addTickets}"
-        modelAttribute="ticket"
-        th:object="(${addTickets})"
-        method="post">
+     <form th:action="@{/addTickets}" modelAttribute="addticket" th:object="(${addTickets})" method="post">
 
             <div class = "user-details">
 

@@ -5,8 +5,7 @@ public class ticket {
     private double ticketprice;
     private int ticketid;
 
-    public ticket(){
-        
+    public ticket() {
     }
 
     public String getTicketType() {
@@ -29,7 +28,7 @@ public class ticket {
         return ticketid;
     }
 
-    public void setTicketType(int ticketid) {
+    public void setTicketId(int ticketid) {
         this.ticketid = ticketid;
     }
 }

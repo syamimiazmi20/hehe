@@ -21,34 +21,30 @@ public class TicketController {
 
    
 
-   @PostMapping("/addTickets")
-    public String addTicket(@ModelAttribute("addTickets")ticket tickets ){
-       
-
+    @PostMapping("/addTickets")
+    public String addTicket(@ModelAttribute("addTickets") ticket tickets) {
         try {
+            System.out.println("Ticket Type: " + tickets.getTicketType());
+            System.out.println("Ticket Price: " + tickets.getTicketPrice());
+    
             try (Connection connection = dataSource.getConnection()) {
                 String sql = "INSERT INTO public.ticket(tickettype,ticketprice) VALUES(?,?)";
                 final var statement = connection.prepareStatement(sql);
-                
-                String tickettype= tickets.getTicketType();
+    
+                String tickettype = tickets.getTicketType();
                 double ticketprice = tickets.getTicketPrice();
-                
-                
+    
                 statement.setString(1, tickettype);
                 statement.setDouble(2, ticketprice);
-                
+    
                 statement.executeUpdate();
                 connection.close();
             }
-                
-                } catch (Exception e) {
-                    e.printStackTrace();
-            
-                  
-                    return "redirect:/error";
-                }
-       
-                 
-            return "redirect:/index";
-         }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/error";
+        }
+    
+        return "redirect:/index";
+    }
 }

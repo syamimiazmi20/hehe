@@ -156,7 +156,7 @@
         <div class="user-details">
             <div class="input-box">
                 <label for="tickettype" class="details">Ticket Type</label>
-                <input type="text" id="tickettype" name="tickettype" placeholder="Ticket Type">
+                <input type="text" id="tickettype" name="ticketType" placeholder="Ticket Type">
             </div>
             <div class="input-box">
                 <label for="ticketprice" class="details">Ticket Price</label>
@@ -168,17 +168,6 @@
         </div>
     </form>
 
-    <form th:action="@{/addTickets}" modelAttribute="addTickets" th:objects = "${addTickets}" method="post">
-        <div>
-            <label for="ticketType">Ticket Type:</label>
-            <input type="text" id="ticketType" name="ticketType" placeholder="Ticket Type" required>
-        </div>
-        <div>
-            <label for="ticketPrice">Ticket Price:</label>
-            <input type="number" step="0.01" id="ticketPrice" name="ticketPrice" placeholder="Ticket Price" required>
-        </div>
-        <button type="submit">Submit</button>
-    </form>
 </div>
 </body>
 </html>

@@ -27,7 +27,7 @@ public class GettingStartedApplication {
         return "index";
     }
 
-    @GetMapping("/addTicket")
+    @GetMapping("/addTickets")
         public String addticket(){
             return "createBooking";
         }

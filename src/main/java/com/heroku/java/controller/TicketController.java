@@ -21,7 +21,7 @@ public class TicketController {
 
    
 
-   @PostMapping("/addTicket")
+   @PostMapping("/addTickets")
     public String addTicket(@ModelAttribute("ticket")ticket ticket ){
        
 

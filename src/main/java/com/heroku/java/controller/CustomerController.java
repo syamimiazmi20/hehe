@@ -24,8 +24,8 @@ public class CustomerController {
     }
 
 
-    @PostMapping("/customerRegister")
-    public String customerRegister(@ModelAttribute("customerRegister") Customer customer) {
+    @PostMapping("/customerRegisters")
+    public String customerRegister(@ModelAttribute("customerRegisters") Customer customer) {
         
         try (Connection connection = dataSource.getConnection()){
 

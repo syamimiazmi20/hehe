@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Add Customer</h1>
-    <form th:action="@{/customerRegister}" modelAttribute="customerRegister" th:objects = "${customerRegister}" method="post">
+    <form th:action="@{/customerRegisters}" modelAttribute="customerRegisters" th:objects = "${customerRegisters}" method="post">
         <div>
             <label for="custName">Customer Name:</label>
             <input type="text" id="custName" name="custname" placeholder="Customer Name" required>

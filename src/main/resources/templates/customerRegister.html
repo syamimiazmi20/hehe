@@ -1,23 +1,41 @@
+
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Registration</title>
+    <title>Add Customer</title>
 </head>
 <body>
-    <form method="post" th:action="@{/customerRegister}" modelAtribute="customerRegister" th:objects="${customerRegister}">
-        <input type="text" name="custname" placeholder="Name" required>
-        <input type="password" name="custpassword" placeholder="Password" required>
-        <input type="email" name="custemail" placeholder="Email" required>
-        <input type="text" name="custaddress" placeholder="Address" required>
-        <input type="text" name="custphonenum" placeholder="Phone Number" required>
-        <button type="submit">Register</button>
+    <h1>Add Customer</h1>
+    <form th:action="@{/customerRegister}" modelAttribute="customerRegister" th:objects = "${customerRegister}" method="post">
+        <div>
+            <label for="custName">Customer Name:</label>
+            <input type="text" id="custName" name="custname" placeholder="Customer Name" required>
+        </div>
+        <div>
+            <label for="custEmail">Customer Email:</label>
+            <input type="email" id="custEmail" name="custemail" placeholder="Customer Email" required>
+        </div>
+        <div>
+            <label for="custPhoneNum">Customer Phone Number:</label>
+            <input type="text" id="custPhoneNum" name="custphonenum" placeholder="Customer Phone Number" required>
+        </div>
+        <div>
+            <label for="custAddress">Customer Address:</label>
+            <input type="text" id="custAddress" name="custaddress" placeholder="Customer Address" required>
+        </div>
+        <div>
+            <label for="custPassword">Customer Password:</label>
+            <input type="password" id="custPassword" name="custpassword" placeholder="Customer Password" required>
+        </div>
+        <div>
+            <label for="custID">Customer ID:</label>
+            <input type="text" id="custID" name="custid" placeholder="Customer ID" required>
+        </div>
+        <button type="submit">Submit</button>
     </form>
 </body>
 </html>
-
-
 
 
 

@@ -150,29 +150,23 @@
 
 
 <h2 class="y">TICKET MANAGEMENT</h2>
-    <div class="container">
-        <div class="title">MANAGE TICKET</div>
-     <form th:action="@{/addTickets}" modelAttribute="addticket" th:object="(${addTickets})" method="post">
-
-            <div class = "user-details">
-
-            <div class = "input-box" >
-            <label for = "name" class="details">Ticket Type</label>
-            <input type="text" name="tickettype" placeholder="Ticket Type">
+<div class="container">
+    <div class="title">MANAGE TICKET</div>
+    <form th:action="@{/addTickets}" modelAttribute="addTickets" th:objects = "${addTickets}" method="post">
+        <div class="user-details">
+            <div class="input-box">
+                <label for="tickettype" class="details">Ticket Type</label>
+                <input type="text" id="tickettype" name="tickettype" placeholder="Ticket Type">
             </div>
-
-            <div class = "input-box">
-            <label for = "email" class="details">Email :</label>
-            <input type = "number" name="ticketprice" placeholder="Ticket Price">
-            </div>         
-
-            <input type="submit" value="Create">
-
-
-
-
-
-        </form>
-    </div>
+            <div class="input-box">
+                <label for="ticketprice" class="details">Ticket Price</label>
+                <input type="number" id="ticketprice" name="ticketprice" placeholder="Ticket Price">
+            </div>
+            <div class="button">
+                <input type="submit" value="Create">
+            </div>
+        </div>
+    </form>
+</div>
 </body>
 </html>

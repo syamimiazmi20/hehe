@@ -38,7 +38,7 @@ public class Customer{
         this.custemail=custemail;
     }
 
-    public String getCustPhoneNum(){
+    public String getCustPhonenum(){
         return this.custphonenum;
     }
 

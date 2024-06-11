@@ -31,6 +31,8 @@ public class GettingStartedApplication {
         public String addticket(){
             return "createBooking";
         }
+
+        
         @GetMapping("/customer")    
 public String customerRegister() {
     return "register";

@@ -35,7 +35,7 @@ public class CustomerController {
         System.out.println("Email: " + customer.getCustEmail());
         System.out.println("Phone Number: " + customer.getCustPhoneNum());
         System.out.println("Address: " + customer.getCustAddress());
-            String sql = "INSERT INTO public.customer(custname, custpassword, custemail, custphonenum, custaddress) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO public.customers(custname, custpassword, custemail, custphonenum, custaddress) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, customer.getCustName());
             statement.setString(2, customer.getCustPassword());

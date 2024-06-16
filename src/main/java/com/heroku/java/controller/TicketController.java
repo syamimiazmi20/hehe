@@ -60,7 +60,7 @@ public class TicketController {
     List<ticket> tickets = new ArrayList<ticket>();
 
     try(Connection connection= dataSource.getConnection()){
-    String sql = "Select ticketid, tickettype,ticketprice From public.ticket order by ticketid";
+    String sql = "SELECT ticketid, tickettype,ticketprice FROM public.ticket ORDER by ticketid";
     final var statement= connection.prepareStatement(sql);
     final var resultSet = statement.executeQuery();
 

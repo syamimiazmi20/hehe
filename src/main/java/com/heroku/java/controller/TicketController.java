@@ -65,7 +65,7 @@ public class TicketController {
     final var resultSet = statement.executeQuery();
 
     while (resultSet.next()){
-        long ticketID= resultSet.getLong("ticketID");
+        Long ticketID= resultSet.getLong("ticketID");
         String ticketType= resultSet.getString("ticketType");
         double ticketPrice = resultSet.getDouble("ticketPrice");
 

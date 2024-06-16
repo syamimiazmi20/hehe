@@ -1,24 +1,19 @@
 package com.heroku.java.controller;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.ui.Model;
 
 import com.heroku.java.model.ticket;
-
-import javax.sql.DataSource;
-
-import java.util.ArrayList;
-import java.util.Map;
-
-import java.util.List;
 
 @Controller
 public class TicketController {
@@ -58,7 +53,7 @@ public class TicketController {
         return "redirect:/index";
     }
 
-    
+
 
     @GetMapping("/ticketList")
     public String ticketList(Model model){
@@ -70,7 +65,7 @@ public class TicketController {
     final var resultSet = statement.executeQuery();
 
     while (resultSet.next()){
-        int ticketID= resultSet.getInt("ticketID");
+        int ticketID= resultSet.getInt("ticketid");
         String ticketType= resultSet.getString("ticketType");
         double ticketPrice = resultSet.getDouble("ticketPrice");
 

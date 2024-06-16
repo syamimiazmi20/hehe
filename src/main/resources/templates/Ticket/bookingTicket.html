@@ -6,8 +6,7 @@
     <title>Booking</title>
     <link rel="stylesheet" href="styleBooking.css">
 </head>
-<body style="background-color: yellow;"></body>
-<body>
+<body style="background-color: yellow;">
     <header>
         <h2 class="logo">Iman's Rabbit Farm</h2>
         <nav class="navigation">
@@ -25,28 +24,24 @@
         <table>
             <thead>
                 <tr>
-                    
                     <th>Ticket ID</th>
                     <th>Ticket Type</th>
                     <th>Ticket Price</th>
-                    
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td th:text = "${ticket.ticketID}"></td>
-                    <td th:text = "${ticket.ticketType}"></td>
-                    <td th:text = "${ticket.ticketPrice}"></td>
-                    <td><button class="update-button">Edit</button>
+                <tr th:each="ticket : ${tickets}">
+                    <td th:text="${ticket.ticketID}"></td>
+                    <td th:text="${ticket.ticketType}"></td>
+                    <td th:text="${ticket.ticketPrice}"></td>
+                    <td>
+                        <button class="update-button">Edit</button>
                         <button class="delete-button">Delete</button>
                     </td>
                 </tr>
-             
-                
-                
             </tbody>
         </table>
     </main>
-
 </body>
 </html>

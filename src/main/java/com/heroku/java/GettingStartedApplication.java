@@ -29,7 +29,7 @@ public class GettingStartedApplication {
 
     @GetMapping("/addTicket")
         public String addticket(){
-            return "createTicket";
+            return "Ticket/createTicket";
         }
 
         

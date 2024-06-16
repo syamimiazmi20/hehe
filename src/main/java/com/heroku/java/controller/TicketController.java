@@ -19,7 +19,7 @@ public class TicketController {
         this.dataSource = dataSource;
     }
 
-   
+
 
     @PostMapping("/addTickets")
     public String addTicket(@ModelAttribute("addTickets") ticket tickets) {

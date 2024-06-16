@@ -3,7 +3,7 @@ package com.heroku.java.model;
 public class ticket {
     private String ticketType;
     private double ticketPrice;
-    private int ticketID;
+    private long ticketID;
 
     public ticket() {
     }
@@ -24,11 +24,11 @@ public class ticket {
         this.ticketPrice = ticketPrice;
     }
 
-    public int getTicketId() {
+    public long getTicketId() {
         return ticketID;
     }
 
-    public void setTicketId(int ticketID) {
+    public void setTicketId(long ticketID) {
         this.ticketID = ticketID;
     }
 }

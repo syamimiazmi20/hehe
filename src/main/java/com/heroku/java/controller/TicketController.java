@@ -56,36 +56,35 @@ public class TicketController {
 
 
     @GetMapping("/ticketList")
-    public String ticketList(Model model){
-    List<ticket> tickets = new ArrayList<ticket>();
+    public String ticketList(Model model) {
+        List<ticket> tickets = new ArrayList<>();
 
-    try(Connection connection= dataSource.getConnection()){
-    String sql = "SELECT ticketid, tickettype,ticketprice FROM public.ticket ORDER by ticketid";
-    final var statement= connection.prepareStatement(sql);
-    final var resultSet = statement.executeQuery();
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = "SELECT ticketid, tickettype, ticketprice FROM public.ticket ORDER BY ticketid";
+            final var statement = connection.prepareStatement(sql);
+            final var resultSet = statement.executeQuery();
 
-    while (resultSet.next()){
-        Long ticketID= resultSet.getLong("ticketid");
-        String ticketType= resultSet.getString("tickettype");
-        double ticketPrice = resultSet.getDouble("ticketprice");
+            while (resultSet.next()) {
+                Long ticketID = resultSet.getLong("ticketid");
+                String ticketType = resultSet.getString("tickettype");
+                double ticketPrice = resultSet.getDouble("ticketprice");
 
-        ticket ticket = new ticket();
-        ticket.setTicketId(ticketID);
-        ticket.setTicketType(ticketType);
-        ticket.setTicketPrice(ticketPrice);
+                ticket ticket = new ticket();
+                ticket.setTicketId(ticketID);
+                ticket.setTicketType(ticketType);
+                ticket.setTicketPrice(ticketPrice);
 
-        tickets.add(ticket);
-        model.addAttribute("tickets",tickets);
-    }
+                tickets.add(ticket);
+            }
 
-    connection.close();
+            model.addAttribute("tickets", tickets);
 
-    return "Ticket/bookingTicket";
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "error";
+        }
 
-    } catch (SQLException e){
-        e.printStackTrace();
-
-        return "error";
+        return "Ticket/bookingTicket";
     }
 }
 }

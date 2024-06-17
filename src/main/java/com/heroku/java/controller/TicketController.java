@@ -89,7 +89,7 @@ public class TicketController {
     }
 
 
-@GetMapping("/updateTicket")
+@GetMapping("/updateTickets")
 public String updateTicket(@RequestParam("ticketId") Long ticketId, Model model) {
 
     try {
@@ -118,8 +118,8 @@ public String updateTicket(@RequestParam("ticketId") Long ticketId, Model model)
     return "Ticket/updateTicket";
 }
 
-@PostMapping("/updateTicket")
-public String updateTicket(@ModelAttribute("updateTicket") ticket ticket, Model model){
+@PostMapping("/updateTickets")
+public String updateTicket(@ModelAttribute("updateTickets") ticket ticket, Model model){
  
     try {
         Connection connection = dataSource.getConnection();

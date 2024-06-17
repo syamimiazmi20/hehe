@@ -126,11 +126,11 @@ public String updateTicket(@ModelAttribute("updateTickets") ticket ticket, Model
         Connection connection = dataSource.getConnection();
         String sql = "UPDATE ticket SET tickettype=? , ticketprice=? WHERE ticketid=?";
         final var statement=connection.prepareStatement(sql);
-        Long ticketID = ticket.getTicketId();
+        Long ticketId = ticket.getTicketId();
         String ticketType = ticket.getTicketType();
         double ticketPrice = ticket.getTicketPrice();
 
-        statement.setLong(1, ticketID);
+        statement.setLong(1, ticketId);
         statement.setString(2,ticketType);
         statement.setDouble(3,ticketPrice);
 

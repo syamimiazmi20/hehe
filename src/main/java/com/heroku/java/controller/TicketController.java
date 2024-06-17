@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.heroku.java.model.ticket;
 
@@ -86,5 +87,59 @@ public class TicketController {
 
         return "Ticket/bookingTicket";
     }
+
+
+@GetMapping("/updateTicket")
+public String updateTicket(@RequestParam("ticketid") Long ticketID, Model model) {
+
+    try {
+        Connection connection = dataSource.getConnection();
+        String sql = "SELECT ticketid,tickettype,ticketprice FROM public.ticket WHERE ticketid=?";
+        final var statement= connection.prepareStatement(sql);
+        statement.setLong(1,ticketID);
+        final var resultSet = statement.executeQuery();
+
+        if (resultSet.next()){
+            
+            String ticketType = resultSet.getString("tickettype");
+            double ticketPrice = resultSet.getDouble("ticketprice");
+
+            ticket ticket = new ticket();
+            ticket.setTicketId(ticketID);
+            ticket.setTicketPrice(ticketPrice);
+            ticket.setTicketType(ticketType);
+
+            connection.close();
+        }
+    }
+    catch(Exception e){
+        e.printStackTrace();
+    }
+    return "Ticket/updateTicket";
 }
 
+@PostMapping("/updateTicket")
+public String updateTicket(@ModelAttribute("updateTicket") ticket ticket, Model model){
+ 
+    try {
+        Connection connection = dataSource.getConnection();
+        String sql = "UPDATE ticket SET tickettype=? , ticketprice=? WHERE ticketid=?";
+        final var statement=connection.prepareStatement(sql);
+        String ticketType = ticket.getTicketType();
+        double ticketPrice = ticket.getTicketPrice();
+
+        statement.setString(1,ticketType);
+        statement.setDouble(2,ticketPrice);
+
+        statement.executeUpdate();
+
+        connection.close();
+        
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        return "redirect:/error";
+    }
+    return "redirect:/bookingTicket";
+}
+}

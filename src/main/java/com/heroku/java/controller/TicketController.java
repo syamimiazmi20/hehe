@@ -108,6 +108,7 @@ public String updateTicket(@RequestParam("ticketId") Long ticketId, Model model)
             ticket.setTicketId(ticketId);
             ticket.setTicketPrice(ticketPrice);
             ticket.setTicketType(ticketType);
+            model.addAttribute("ticket",ticket);
 
             connection.close();
         }

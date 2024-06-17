@@ -144,6 +144,6 @@ public String updateTicket(@ModelAttribute("updateTickets") ticket ticket, Model
         e.printStackTrace();
         return "redirect:/error";
     }
-    return "redirect:/bookingTicket";
+    return "redirect:/Ticket/bookingTicket";
 }
 }

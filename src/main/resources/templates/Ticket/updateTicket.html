@@ -153,7 +153,7 @@
 <div class="container">
     <div class="title">MANAGE TICKET</div>
     
-    <form th:action="@{/updateTickets}" modelAttribute="updateTickets" th:object = "${updateTickets}" method="post">
+    <form th:action="@{/updateTickets}" modelAttribute="updateTickets" th:object = "${ticket}" method="post">
         <div class="user-details">
             <div class="input-box">
                 <label for="ticketid" class="details">Ticket ID</label>

@@ -130,7 +130,7 @@ public String updateTicket(@ModelAttribute("updateTickets") ticket ticket, Model
         String ticketType = ticket.getTicketType();
         double ticketPrice = ticket.getTicketPrice();
 
-        statement.setLong(3, ticketID);
+        statement.setLong(1, ticketID);
         statement.setString(2,ticketType);
         statement.setDouble(3,ticketPrice);
 

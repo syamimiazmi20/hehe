@@ -90,13 +90,13 @@ public class TicketController {
 
 
 @GetMapping("/updateTicket")
-public String updateTicket(@RequestParam("ticketid") Long ticketID, Model model) {
+public String updateTicket(@RequestParam("ticketId") Long ticketId, Model model) {
 
     try {
         Connection connection = dataSource.getConnection();
         String sql = "SELECT ticketid,tickettype,ticketprice FROM public.ticket WHERE ticketid=?";
         final var statement= connection.prepareStatement(sql);
-        statement.setLong(1,ticketID);
+        statement.setLong(1,ticketId);
         final var resultSet = statement.executeQuery();
 
         if (resultSet.next()){
@@ -105,7 +105,7 @@ public String updateTicket(@RequestParam("ticketid") Long ticketID, Model model)
             double ticketPrice = resultSet.getDouble("ticketprice");
 
             ticket ticket = new ticket();
-            ticket.setTicketId(ticketID);
+            ticket.setTicketId(ticketId);
             ticket.setTicketPrice(ticketPrice);
             ticket.setTicketType(ticketType);
 

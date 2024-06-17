@@ -225,7 +225,9 @@
                     <td th:text="${ticket.ticketType}"></td>
                     <td th:text="${ticket.ticketPrice}"></td>
                     <td>
-                        <button class="update-button" th:href="@{/updateTickets?ticketId=}+${ticket.ticketId}" th:value="${ticket.ticketId}">Edit</button>
+                    <a th:href="@{/updateTickets?ticketId=}+${ticket.ticketId}" th:value="${ticket.ticketId}">
+                        <button class="update-button">Edit</button>
+                    </a>
                         <button class="delete-button">Delete</button>
                     </td>
                 </tr>

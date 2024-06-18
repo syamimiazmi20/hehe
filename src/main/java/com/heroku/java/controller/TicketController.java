@@ -1,5 +1,6 @@
 package com.heroku.java.controller;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -143,6 +144,22 @@ public String updateTicket(@ModelAttribute("updateTickets") ticket ticket, Model
     } catch (Exception e) {
         e.printStackTrace();
         return "redirect:/error";
+    }
+    return "redirect:/ticketList";
+}
+
+@PostMapping("/deleteTicket")
+public String deleteTicket(@RequestParam("ticketId") Long ticketId){
+    try {
+        Connection connection = dataSource.getConnection();
+        String sql = "DELETE FROM public.ticket WHERE ticketid=?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setLong(1,ticketId);
+        statement.executeQuery();
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        return "redirect:/errorDelete";
     }
     return "redirect:/ticketList";
 }

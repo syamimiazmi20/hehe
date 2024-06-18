@@ -28,8 +28,8 @@ public class CustomerController {
 
     @PostMapping("/customerRegisters")
     public String customerRegister(@ModelAttribute("customerRegisters")  @RequestParam("Citizen") String citizenStatus,
-                               @RequestParam(value = "custicnum", required = false) String custIC,
-                               @RequestParam(value = "custpassport", required = false) String passportNumber, 
+                               @RequestParam(value = "custIcNum", required = false) String custIC,
+                               @RequestParam(value = "custPassport", required = false) String passportNumber, 
                                Customer customer) {
         
         try (Connection connection = dataSource.getConnection()){

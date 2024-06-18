@@ -127,14 +127,24 @@
         font-size: 16px;
     }
     .container form .button{
-        margin-top: 55px;
-        border-radius: 5px;
-        position: relative;
-        display: block;
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
     }
     .button input{
-        padding: 3px;
+    padding: 10px 20px;
+    background: green;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
     }
+
+    .button input:hover {
+    background: darkgreen;
+}
 </style>
 <header>
         <h2 class="logo">Iman's Rabbit Farm</h2>

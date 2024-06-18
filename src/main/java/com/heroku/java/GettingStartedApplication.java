@@ -35,7 +35,7 @@ public class GettingStartedApplication {
         
         @GetMapping("/customer")    
 public String customerRegister() {
-    return "register";
+    return "Customer/CustomerRegister";
 }
 
     @GetMapping("/database")

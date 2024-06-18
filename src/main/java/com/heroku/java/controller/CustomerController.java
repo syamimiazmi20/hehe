@@ -2,6 +2,7 @@ package com.heroku.java.controller;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javax.sql.DataSource;
 
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.heroku.java.model.Customer;
 
@@ -25,7 +27,10 @@ public class CustomerController {
 
 
     @PostMapping("/customerRegisters")
-    public String customerRegister(@ModelAttribute("customerRegisters") Customer customer) {
+    public String customerRegister(@ModelAttribute("customerRegisters")  @RequestParam("citizenStatus") String citizenStatus,
+                               @RequestParam(value = "custicnum", required = false) String custIC,
+                               @RequestParam(value = "custpassport", required = false) String passportNumber, 
+                               Customer customer) {
         
         try (Connection connection = dataSource.getConnection()){
 
@@ -35,15 +40,40 @@ public class CustomerController {
         System.out.println("Email: " + customer.getCustEmail());
         System.out.println("Phone Number: " + customer.getCustPhoneNum());
         System.out.println("Address: " + customer.getCustAddress());
-            String sql = "INSERT INTO public.customers(custname, custpassword, custemail, custphonenum, custaddress) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement statement = connection.prepareStatement(sql);
+            String custsql = "INSERT INTO public.customers(custname, custpassword, custemail, custphonenum, custaddress) VALUES (?, ?, ?, ?, ?)";
+            
+            PreparedStatement statement = connection.prepareStatement(custsql);
             statement.setString(1, customer.getCustName());
             statement.setString(2, customer.getCustPassword());
             statement.setString(3, customer.getCustEmail());
             statement.setString(4, customer.getCustPhoneNum());
             statement.setString(5, customer.getCustAddress());
-            statement.executeUpdate();
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()){
+                Long custid =  resultSet.getLong("custid");
+
+                if ("Citizen".equals(citizenStatus)) {
+                    String citizenSql = "INSERT INTO public.citizens(custid,custicnum) VALUES (?, ?)";
+                    try (PreparedStatement citizenStatement = connection.prepareStatement(citizenSql)) {
+                        citizenStatement.setLong(1, custid);
+                        citizenStatement.setString(2, custIC);
+                        citizenStatement.executeUpdate();
+                    }
+                } else if ("Non-Citizen".equals(citizenStatus)) {
+                    String nonCitizenSql = "INSERT INTO public.non_citizens(custid, custpassport) VALUES (?, ?)";
+                    try (PreparedStatement nonCitizenStatement = connection.prepareStatement(nonCitizenSql)) {
+                        nonCitizenStatement.setLong(1, custid);
+                        nonCitizenStatement.setString(2, passportNumber);
+                        nonCitizenStatement.executeUpdate();
+                    }
+                }
+            }
             System.out.println("Name: " + customer.getCustName());
+
+            
+
             connection.close();
         } catch (Exception e) {
             e.printStackTrace();

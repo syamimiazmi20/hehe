@@ -27,7 +27,7 @@ public class CustomerController {
 
 
     @PostMapping("/customerRegisters")
-    public String customerRegister(@ModelAttribute("customerRegisters")  @RequestParam("citizenStatus") String citizenStatus,
+    public String customerRegister(@ModelAttribute("customerRegisters")  @RequestParam("Citizen") String citizenStatus,
                                @RequestParam(value = "custicnum", required = false) String custIC,
                                @RequestParam(value = "custpassport", required = false) String passportNumber, 
                                Customer customer) {

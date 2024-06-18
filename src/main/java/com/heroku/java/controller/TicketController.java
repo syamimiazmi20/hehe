@@ -155,7 +155,9 @@ public String deleteTicket(@RequestParam("ticketId") Long ticketId){
         String sql = "DELETE FROM public.ticket WHERE ticketid=?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setLong(1,ticketId);
-        statement.executeQuery();
+        statement.executeUpdate();
+
+        connection.close();
 
     } catch (Exception e) {
         e.printStackTrace();

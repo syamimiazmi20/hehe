@@ -40,7 +40,7 @@ public class CustomerController {
         System.out.println("Email: " + customer.getCustEmail());
         System.out.println("Phone Number: " + customer.getCustPhoneNum());
         System.out.println("Address: " + customer.getCustAddress());
-            String custsql = "INSERT INTO public.customers(custname, custpassword, custemail, custphonenum, custaddress) VALUES (?, ?, ?, ?, ?)";
+            String custsql = "INSERT INTO public.customers(custname, custpassword, custemail, custphonenum, custaddress) VALUES (?, ?, ?, ?, ?) RETURNING custid";
             
             PreparedStatement statement = connection.prepareStatement(custsql);
             statement.setString(1, customer.getCustName());
@@ -52,6 +52,7 @@ public class CustomerController {
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()){
+                
                 Long custid =  resultSet.getLong("custid");
 
                 if ("Citizen".equals(citizenStatus)) {

@@ -56,14 +56,14 @@ public class CustomerController {
                 Long custid =  resultSet.getLong("custid");
 
                 if ("Citizen".equals(citizenStatus)) {
-                    String citizenSql = "INSERT INTO public.citizens(custid,custicnum) VALUES (?, ?)";
+                    String citizenSql = "INSERT INTO public.citizen(custid,custicnum) VALUES (?, ?)";
                     try (PreparedStatement citizenStatement = connection.prepareStatement(citizenSql)) {
                         citizenStatement.setLong(1, custid);
                         citizenStatement.setString(2, custIC);
                         citizenStatement.executeUpdate();
                     }
                 } else if ("Non-Citizen".equals(citizenStatus)) {
-                    String nonCitizenSql = "INSERT INTO public.non_citizens(custid, custpassport) VALUES (?, ?)";
+                    String nonCitizenSql = "INSERT INTO public.noncitizen(custid, custpassport) VALUES (?, ?)";
                     try (PreparedStatement nonCitizenStatement = connection.prepareStatement(nonCitizenSql)) {
                         nonCitizenStatement.setLong(1, custid);
                         nonCitizenStatement.setString(2, passportNumber);

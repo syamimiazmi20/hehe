@@ -7,16 +7,22 @@
 </head>
 <body>
     <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh; /* Ensure full viewport height */
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: white;
-            width: 100%;
+            background-color: #fff;
         }
 
         header {
@@ -45,7 +51,7 @@
             color: white;
             text-decoration: none;
             font-weight: 500;
-            margin-left: 40px;
+            margin-left: 20px; /* Adjusted for smaller screens */
         }
 
         .navigation a::after {
@@ -59,7 +65,7 @@
             border-radius: 5px;
             transform-origin: right;
             transform: scaleX(0);
-            transition: transform .5s;
+            transition: transform 0.5s;
         }
 
         .navigation a:hover::after {
@@ -78,8 +84,8 @@
             font-size: 1.1em;
             color: #fff;
             font-weight: 500;
-            margin-left: 40px;
-            transition: .5s;
+            margin-left: 20px; /* Adjusted for smaller screens */
+            transition: 0.5s;
         }
 
         .navigation .btnlogin-popup:hover {
@@ -88,16 +94,25 @@
         }
 
         main {
-            flex: 1;
+            width: 100%;
+            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 100%;
+            flex-direction: column;
+        }
+
+        h1 {
+            margin: 20px 0;
+            font-size: 2em;
+            color: green;
+            text-align: center;
         }
 
         table {
+            width: 100%;
+            max-width: 800px; /* Limit table width for larger screens */
             border-collapse: collapse;
-            width: 80%;
             background: white;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin: 20px 0;
@@ -121,15 +136,20 @@
             background-color: #e9e9e9;
         }
 
-        .update-button {
+        .update-button, .delete-button {
             padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             font-size: 1em;
             transition: background-color 0.3s;
+            width: auto; /* Ensure button width adjusts to content */
+            margin: 5px; /* Add margin for spacing */
+        }
+
+        .update-button {
+            background-color: #4CAF50;
+            color: white;
         }
 
         .update-button:hover {
@@ -137,20 +157,15 @@
         }
 
         .delete-button {
-            padding: 10px 20px;
             background-color: #f44336;
             color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background-color 0.3s;
         }
 
         .delete-button:hover {
             background-color: #d32f2f;
         }
 
+        /* Popup styles */
         .popup {
             display: none;
             position: fixed;
@@ -159,6 +174,7 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
             justify-content: center;
             align-items: center;
         }
@@ -188,8 +204,22 @@
             background-color: #ddd;
         }
 
-        h1 {
-            margin: 20px 0;
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .navigation {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .navigation a {
+                margin: 10px 0;
+                margin-left: 0;
+            }
+
+            .navigation .btnlogin-popup {
+                margin: 10px 0;
+                margin-left: 0;
+            }
         }
     </style>
 
@@ -242,7 +272,7 @@
 
 
     <script>
-
+        
     document.addEventListener('DOMContentLoaded', function(){
         const deleteLinks = document.querySelectorAll('.deleteTicketButton');
 

@@ -41,7 +41,7 @@ public String customerRegister() {
 @GetMapping("/dashboard")
     public String dashboard(){
         {
-            retun "DashboardAdmin";
+            return "DashboardAdmin";
         }
     @GetMapping("/database")
     String database(Map<String, Object> model) {

@@ -38,7 +38,7 @@ public String customerRegister() {
     return "Customer/CustomerRegister";
 }
 
-@GetMapping("/dashboard")
+@GetMapping("/dashboardAdmin")
     public String dashboard(){
             return "DashboardAdmin";
         }

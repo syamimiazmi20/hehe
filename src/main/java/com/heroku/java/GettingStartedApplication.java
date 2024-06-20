@@ -40,7 +40,6 @@ public String customerRegister() {
 
 @GetMapping("/dashboard")
     public String dashboard(){
-        {
             return "DashboardAdmin";
         }
     @GetMapping("/database")

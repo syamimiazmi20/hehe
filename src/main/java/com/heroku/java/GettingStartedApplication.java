@@ -38,6 +38,11 @@ public String customerRegister() {
     return "Customer/CustomerRegister";
 }
 
+@GetMapping("/dashboard")
+    public String dashboard(){
+        {
+            retun "DashboardAdmin";
+        }
     @GetMapping("/database")
     String database(Map<String, Object> model) {
         try (Connection connection = dataSource.getConnection()) {

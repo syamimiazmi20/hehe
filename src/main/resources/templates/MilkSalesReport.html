@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milk Sales Report - Admin</title>
+    <link rel="stylesheet" href="Report.css">
+</head>
+<body>
+    <div class="sidebar">
+        <img src="logo.jpeg" alt="Logo" class="logo">
+        <a href="VEDAccountAdmin.html">Account</a>
+        <a href="#">Dashboard</a>
+        <a href="MilkProductionAdmin.html">Milk Production</a>
+        <button class="dropdown-btn">Reports 
+            <span>&#9660;</span>
+        </button>
+        <div class="dropdown-container">
+            <a href="MilkProductionReport.html">Milk Production Report</a>
+            <a href="MilkSalesReport.html">Milk Sales Report</a>
+        </div>
+    </div>
+    
+    <div class="header">
+        <div class="date-time" id="date-time"></div>
+        <img src="profile-picture.png" alt="User Profile" class="profile">
+    </div>
+
+    <div class="content">
+        <h1>Milk Sales Report</h1>
+        <div class="date-selection">
+            <label for="fromDate">From Date:</label>
+            <input type="date" id="fromDate" name="fromDate">
+            <label for="toDate">To Date:</label>
+            <input type="date" id="toDate" name="toDate">
+            <button onclick="generateReport()">Generate Report</button>
+        </div>
+        <div class="report-section">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Milk Purchase</th>
+                        <th>Customer ID</th>
+                        <th>Production ID</th>
+                        <th>Amount</th>
+                        <th>Payment ID</th>
+                        <th>Total Payment</th>
+                    </tr>
+                </thead>
+                <tbody id="salesReport">
+                    <!-- Sales report data will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2023 Lorem Ipsum. All Rights Reserved.</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Dropdown functionality
+            const dropdownBtn = document.querySelector('.dropdown-btn');
+            const dropdownContainer = document.querySelector('.dropdown-container');
+
+            dropdownBtn.addEventListener('click', function () {
+                dropdownContainer.style.display = dropdownContainer.style.display === 'block' ? 'none' : 'block';
+            });
+
+            // Date and Time display
+            function updateDateTime() {
+                const now = new Date();
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+                document.getElementById('date-time').textContent = now.toLocaleDateString('en-US', options);
+            }
+
+            setInterval(updateDateTime, 1000);
+            updateDateTime();
+        });
+
+        function generateReport() {
+            const fromDate = document.getElementById('fromDate').value;
+            const toDate = document.getElementById('toDate').value;
+
+            if (!fromDate || !toDate) {
+                alert('Please select both dates.');
+                return;
+            }
+
+            const salesReport = document.getElementById('salesReport');
+            salesReport.innerHTML = `
+                <tr>
+                    <td>1</td>
+                    <td>C123</td>
+                    <td>P123</td>
+                    <td>100</td>
+                    <td>Pay123</td>
+                    <td>1500</td>
+                </tr>
+            `;
+        }
+    </script>
+</body>
+</html>

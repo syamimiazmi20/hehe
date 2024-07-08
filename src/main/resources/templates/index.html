@@ -1,94 +1,451 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'index')}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dairy Ben - Farm Fresh Milk</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap');
+        
+        :root {
+            --primary-color: #4a6741; /* Green */
+            --secondary-color: #8b4513; /* Brown */
+            --text-color: #444; /* Slightly lighter text color */
+            --background-color: #f5f5f5;
+        }
+
+        body {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            font-weight: 400;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: white;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            text-align: left;
+        }
+
+        .logo img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid #4a6741; /* Green border */
+            object-fit: cover;
+        }
+
+        .company-name {
+            margin-left: 1rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: left;
+        }
+
+        nav {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul {
+            display: flex;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            justify-content: center; /* Center the items horizontally */
+        }
+
+        nav ul li {
+            margin: 0 1rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #f0f0f0;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 13rem 2rem;
+            background-image: url('img/register.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: #fff; /* White text color for better contrast */
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-weight: 500;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .transparent-btn {
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            border: 2px solid white;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            transition: background-color 0.3s;
+            text-decoration: none; /* Remove underline */
+            display: inline-block; /* Ensure block-level styling */
+        }
+
+        .transparent-btn:hover {
+            background-color: black; /* Brown transparent */
+        }
+
+        .employees {
+            padding: 2rem;
+            background-color: white;
+        }
+
+        .employee-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .employee {
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .employee img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .about {
+            padding: 4rem 2rem;
+            background-color: #f9f5f2;
+        }
+
+        .about-content {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .about-text {
+            flex: 1;
+            padding-right: 2rem;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .about-text p {
+            margin-bottom: 2rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .about-btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: #8b4513;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .about-btn:hover {
+            background-color: #6b3309;
+        }
+
+        .about-image {
+            flex: 1;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            font-family: 'freight-big-pro';
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            flex: 1;
+            margin: 1rem;
+            min-width: 200px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1rem;
+            margin-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .logo-container {
+                margin-bottom: 1rem;
+            }
+
+            nav {
+                margin-top: 1rem;
+                width: 100%; /* Ensure full width on mobile */
+            }
+
+            nav ul {
+                justify-content: center; /* Center items on mobile */
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+
+            .about-text {
+                padding-right: 0;
+                margin-bottom: 2rem;
+            }
+            .employee-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
 <body>
-
-<div class="jumbotron text-center">
-    <div class="container">
-        <a href="/" class="lang-logo">
-            <img alt="" src="/lang-logo.png">
-        </a>
-        <h1>Getting Started with Java on Heroku</h1>
-        <p>This is a sample Java application deployed to Heroku. It's a reasonably simple app - but a good foundation
-            for understanding how to get the most out of the Heroku platform.</p>
-        <a type="button" class="btn btn-lg btn-default"
-           href="https://devcenter.heroku.com/articles/getting-started-with-java"><span
-                class="glyphicon glyphicon-flash"></span> Getting Started with Java</a>
-        <a type="button" class="btn btn-lg btn-primary" href="https://github.com/heroku/java-getting-started"><span
-                class="glyphicon glyphicon-download"></span> Source on GitHub</a>
-    </div>
-</div>
-
-<div class="container">
-    <div class="alert alert-info text-center" role="alert">
-        To deploy your own copy, and learn the fundamentals of the Heroku platform, head over to the <a
-            href="https://devcenter.heroku.com/articles/getting-started-with-java" class="alert-link">Getting Started
-        with Java on Heroku</a> tutorial.
-    </div>
-    <hr>
-    <div class="row">
-        <div class="col-md-6">
-            <h3><span class="glyphicon glyphicon-info-sign"></span> How this sample app works</h3>
-            <ul>
-                <li>This app was deployed to Heroku, either using Git or by using <a
-                        href="https://github.com/heroku/java-getting-started">Heroku Button</a> on the repository.
-                </li>
-
-                <li>When Heroku received the source code, it fetched all the dependencies in the <a
-                        href="https://github.com/heroku/java-getting-started/blob/main/pom.xml">pom.xml</a>, creating a
-                    slug.
-                </li>
-                <li>The platform then spins up a dyno, a lightweight container that provides an isolated environment in
-                    which the slug can be mounted and executed.
-                </li>
-                <li>You can scale your app, manage it, and deploy over <a href="https://addons.heroku.com/">150 add-on
-                    services</a>, from the Dashboard or CLI.
-                </li>
-            </ul>
+    <header>
+        <div class="logo-container">
+            <div class="logo">
+                <img src="img/logo.jpeg" alt="Dairy Ben Logo">
+            </div>
+            <div class="company-name">DairyBen</div>
         </div>
-        <div class="col-md-6">
-            <h3><span class="glyphicon glyphicon-link"></span> Next Steps</h3>
+        <nav>
             <ul>
-                <li>If you are following the <a href="https://devcenter.heroku.com/articles/getting-started-with-java">Getting
-                    Started</a> guide, then please head back to the tutorial and follow the next steps!
-                </li>
-                <li>If you deployed this app by deploying the Heroku Button, then in a command line shell, run:</li>
-                <li>
-                    <ul>
-                        <li><code>git clone https://github.com/heroku/java-getting-started.git</code> - this will create
-                            a
-                            local copy of the source code for the app
-                        </li>
-                        <li><code>cd java-getting-started</code> - change directory into the local source code
-                            repository
-                        </li>
-                        <li><code>heroku git:remote -a &lt;your-app-name></code> - associate the Heroku app with the
-                            repository
-                        </li>
-                        <li>You'll now be set up to run the app locally, or <a
-                                href="https://devcenter.heroku.com/articles/getting-started-with-java#push-local-changes">deploy
-                            changes</a> to Heroku
-                        </li>
-                    </ul>
-                </li>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#employees">Employee</a></li>
+                <li><a href="#about">About Us</a></li>
             </ul>
-            <h3><span class="glyphicon glyphicon-link"></span> Helpful Links</h3>
-            <ul>
-                <li><a href="https://www.heroku.com/home">Heroku</a></li>
-                <li><a href="https://devcenter.heroku.com/">Heroku Dev Center</a></li>
-                <li><a href="https://devcenter.heroku.com/articles/getting-started-with-java">Getting Started with Java
-                    on Heroku</a></li>
-                <li><a href="https://devcenter.heroku.com/articles/deploying-java">Deploying Java Apps on Heroku</a>
-                </li>
-            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <h1>Butterfly Agro Farm</h1>
+        <p>Organic Dairy House</p>
+        <div class="hero-buttons">
+            <a href="/employeeLogin" class="transparent-btn staff-btn">Staff</a>
+            <a href="/customerRegistration" class="transparent-btn customer-btn">Customer</a>
+            <a href="/adminLogin" class="transparent-btn admin-btn">Admin</a>
         </div>
-    </div>
+    </section>
 
-    <div class="alert alert-info text-center" role="alert">
-        Please do work through the Getting Started guide, even if you do know how to build such an application. The
-        guide covers the basics of working with Heroku, and will familiarize you with all the concepts you need in order
-        to build and deploy your own apps.
-    </div>
-</div>
+    <section id="employees" class="employees">
+        <h2>Meet Our Team</h2>
+        <div class="employee-grid">
+            <div class="employee" th:each="employee : ${employees}" th:data-employee="${employee.id}">
+                <img th:src="@{${employee.image}}" th:alt="${employee.name}">
+                <h3 th:text="${employee.name}">Siti Firha Balqis</h3>
+                <p th:text="${employee.role}">Programmer</p>
+            </div>
 
+            <div class="employee" th:each="employee : ${employees}" th:data-employee="${employee.id}">
+                <img th:src="@{${employee.image}}" th:alt="${employee.name}">
+                <h3 th:text="${employee.name}">Nurin Nadia</h3>
+                <p th:text="${employee.role}">Programmer</p>
+            </div>
+
+            <div class="employee" th:each="employee : ${employees}" th:data-employee="${employee.id}">
+                <img th:src="@{${employee.image}}" th:alt="${employee.name}">
+                <h3 th:text="${employee.name}">Nik Natasha</h3>
+                <p th:text="${employee.role}">Programmer</p>
+            </div>
+
+            <div class="employee" th:each="employee : ${employees}" th:data-employee="${employee.id}">
+                <img th:src="@{${employee.image}}" th:alt="${employee.name}">
+                <h3 th:text="${employee.name}">Zamharirah</h3>
+                <p th:text="${employee.role}">Tester</p>
+            </div>
+
+            <div class="employee" th:each="employee : ${employees}" th:data-employee="${employee.id}">
+                <img th:src="@{${employee.image}}" th:alt="${employee.name}">
+                <h3 th:text="${employee.name}">Nurul Syamimi</h3>
+                <p th:text="${employee.role}">Docummenter</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="about-content">
+            <div class="about-text">
+                <h2>About Us</h2>
+                <p>Dairy Ben provides fresh, organic milk straight from our farm to your table. We pride ourselves on maintaining high standards of animal welfare and sustainable farming practices. Our team of dedicated professionals ensures that every drop of milk you receive is of the highest quality.</p>
+                <a href="#home" class="about-btn">LET'S GO</a>
+            </div>
+            <div class="about-image">
+                <img src="images/image1.jpeg" alt="Fresh Milk">
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Dairy Ben provides fresh, organic milk straight from our farm to your table.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@dairyben.com</p>
+                <p>Phone: (123) 456-7890</p>
+                <p>Address: 123 Milk Way, Dairy Town, DT 12345</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Dairy Ben by Bentley. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('nav ul li a');
+
+            const options = {
+                threshold: 0.5
+            };
+
+            const observer = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) {
+                        return;
+                    }
+                    entry.target.classList.add('show');
+                    observer.unobserve(entry.target);
+                });
+            }, options);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Smooth scrolling for navigation links
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+
+                    window.scrollTo({
+                        top: targetSection.offsetTop,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 </html>

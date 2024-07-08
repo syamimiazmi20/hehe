@@ -12,7 +12,7 @@ import com.heroku.java.model.Employee;;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
-    Optional<Employee> findByEmail(String email);
+    Employee findByEmail(String email);
 
     Optional<Employee> findByEmailAndPassword(String email, String password);
 

@@ -1,9 +1,13 @@
 package com.heroku.java.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "customers")
 public class Customer {
-
-    private int id;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String name;
     private String address;
     private String email;

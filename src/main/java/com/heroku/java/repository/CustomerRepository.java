@@ -1,6 +1,6 @@
 package com.heroku.java.repository;
 
-import com.example.dairyben.model.Customer;
+import com.heroku.java.model.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

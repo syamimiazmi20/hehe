@@ -1,15 +1,20 @@
 package com.heroku.java.controller;
 
-package com.example.dairyben.controller;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
-import com.example.dairyben.dao.CustomerDAO;
-import com.example.dairyben.model.Customer;
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.heroku.java.model.Customer;
+import com.heroku.java.repository.CustomerRepository;
 
 @Controller
 public class CustomerController {
@@ -20,7 +25,7 @@ public class CustomerController {
     @GetMapping("/index")
     public String index() {
         return "index"; // Refers to /src
-        
+
     }
 
     @GetMapping("/customerRegistration")
@@ -49,4 +54,3 @@ public class CustomerController {
         }
     }
 }
-

@@ -53,4 +53,21 @@ public class CustomerController {
             return "customerRegistration";
         }
     }
+
+    @PostMapping("/authenticateCustomer")
+    public String authenticateCustomer(
+            @RequestParam("email") String email,
+            @RequestParam("password") String password,
+            Model model) {
+
+        Customer customer = customerRepository.authenticateCustomer(email, password);
+        
+        if (customer != null) {
+            model.addAttribute("name", customer.getName());
+            return "redirect:/dashboard"; // Refers to a dashboard or any other page you have
+        } else {
+            model.addAttribute("error", "Invalid email or password");
+            return "redirect:/login"; // Refers to a login page
+        }
+    }
 }

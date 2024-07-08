@@ -9,56 +9,75 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.heroku.java.model.Customer;
 import com.heroku.java.repository.CustomerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/customers")
 public class CustomerController {
 
     @Autowired
     private CustomerRepository customerRepository;
 
-    @GetMapping("/index")
-    public String index() {
-        return "index"; // Refers to /src/main/resources/templates/index.jsp
-    }
-
-    @GetMapping("/customerRegistration")
-    public String showRegistrationForm() {
-        return "customerRegistration"; // Refers to /src/main/resources/templates/customerRegistration.jsp
-    }
-
-    @PostMapping("/registerCustomer")
-    public String registerCustomer(
-            @RequestParam("name") String name,
-            @RequestParam("email") String email,
-            @RequestParam("password") String password,
-            @RequestParam("address") String address,
-            @RequestParam("phone") String phone,
-            Model model) {
-
-        Customer customer = new Customer(name, email, password, address, phone);
-        try {
-            customerRepository.save(customer);
-            return "redirect:/customerLogin"; // Refers to customerLogin.jsp
-        } catch (Exception e) {
-            model.addAttribute("error", "An error occurred while registering the customer. Please try again.");
-            return "customerRegistration";
+    @PostMapping("/register")
+    public ResponseEntity<?> registerCustomer(@RequestBody Customer customer) {
+        if (customerRepository.existsByEmail(customer.getEmail())) {
+            return ResponseEntity.badRequest().body("Email already exists");
         }
+        Customer savedCustomer = customerRepository.save(customer);
+        return ResponseEntity.ok(savedCustomer);
     }
 
-    @PostMapping("/authenticateCustomer")
-    public String authenticateCustomer(
-            @RequestParam("email") String email,
-            @RequestParam("password") String password,
-            Model model) {
-
-        Customer customer = customerRepository.authenticateCustomer(email, password);
-        
+    @PostMapping("/login")
+    public ResponseEntity<?> loginCustomer(@RequestParam String email, @RequestParam String password) {
+        Customer customer = customerRepository.findByEmailAndPassword(email, password);
         if (customer != null) {
-            model.addAttribute("name", customer.getName());
-            return "redirect:/dashboard"; // Refers to a dashboard or any other page you have
+            return ResponseEntity.ok(customer);
         } else {
-            model.addAttribute("error", "Invalid email or password");
-            return "redirect:/login"; // Refers to a login page
+            return ResponseEntity.badRequest().body("Invalid credentials");
         }
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> searchCustomers(@RequestParam String keyword) {
+        List<Customer> customers = customerRepository.findByNameContaining(keyword);
+        return ResponseEntity.ok(customers);
+    }
+
+    @GetMapping("/by-address")
+    public ResponseEntity<?> getCustomersByAddress(@RequestParam String address) {
+        List<Customer> customers = customerRepository.findByAddressContaining(address);
+        return ResponseEntity.ok(customers);
+    }
+
+    @GetMapping("/by-phone")
+    public ResponseEntity<?> getCustomerByPhone(@RequestParam String phone) {
+        Customer customer = customerRepository.findByPhoneNum(phone);
+        if (customer != null) {
+            return ResponseEntity.ok(customer);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/count-by-address")
+    public ResponseEntity<?> countCustomersByAddress(@RequestParam String address) {
+        long count = customerRepository.countByAddress(address);
+        return ResponseEntity.ok(count);
+    }
+
+    @GetMapping("/all-ordered")
+    public ResponseEntity<?> getAllCustomersOrdered() {
+        List<Customer> customers = customerRepository.findAllOrderedByName();
+        return ResponseEntity.ok(customers);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteCustomerByEmail(@RequestParam String email) {
+        customerRepository.deleteByEmail(email);
+        return ResponseEntity.ok().build();
     }
 }

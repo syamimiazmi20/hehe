@@ -52,6 +52,12 @@
         <artifactId>jnegmas</artifactId>
         <version>0.1.1</version>
       </dependency>
+    
+      <dependency>
+        <groupId>org.springframework.data</groupId>
+        <artifactId>spring-data-jpa</artifactId>
+        <version>2.1.10.RELEASE</version>
+      </dependency>
     </dependencies>
 
     <build>

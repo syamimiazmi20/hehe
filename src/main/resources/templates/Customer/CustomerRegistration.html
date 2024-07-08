@@ -296,7 +296,7 @@
     </div>
     <div class="form-container">
         <h1>Customer Registration</h1>
-        <form action="#" th:action="@{/CustomerRegistration}" method="post">
+        <form th:action="@{/customerRegister}" modelAttribute="customerRegister" th:object = "${customerRegisters}" method="post">
             <div class="form-row">
                 <div class="form-group">
                     <label for="name">Full Name</label>
@@ -324,7 +324,7 @@
             <button type="submit">Register</button>
         </form>
         <div class="login-link">
-            <p>Already have an account? <a href="/CustomerLogin">Log In Here</a></p>
+            <p>Already have an account? <a> th:href="@{/CustomerLogin}">Log In Here</a></p>
         </div>
     </div>
 </div>

@@ -22,7 +22,7 @@ public class CustomerController {
     @Autowired
     private CustomerRepository customerRepository;
 
-    @PostMapping("/register")
+    @PostMapping("/customerRegister")
     public ResponseEntity<?> registerCustomer(@RequestBody Customer customer) {
         if (customerRepository.existsByEmail(customer.getEmail())) {
             return ResponseEntity.badRequest().body("Email already exists");

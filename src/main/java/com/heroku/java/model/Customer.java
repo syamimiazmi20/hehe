@@ -1,83 +1,70 @@
 package com.heroku.java.model;
 
+public class Customer {
 
+    private int id;
+    private String name;
+    private String address;
+    private String email;
+    private String password;
+    private String phoneNum;
 
-
-public class Customer{
-    
-    private String custname;
-    private String custemail;
-    private String custphonenum;
-    private String custaddress;
-    private String custpassword;
-    private Long custid;
-    private String custicnum;
-    private String custpassport;
-    
-    public Customer(){}
-
-    public String getCustName(){
-        return this.custname;
+    public Customer() {
     }
 
-    public void setCustName(String custname){
-        this.custname = custname;
+    public Customer(String name, String email, String password, String address, String phoneNum) {
+        this.name = name;
+        this.address = address;
+        this.email = email;
+        this.password = password;
+        this.phoneNum = phoneNum;
     }
 
-    public Long getCustID(){
-        return this.custid;
+    public int getId() {
+        return id;
     }
 
-    public void setCustID(Long custid){
-        this.custid = custid;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getCustEmail(){
-        return this.custemail;
+    public String getName() {
+        return name;
     }
 
-    public void setCustEmail(String custemail){
-        this.custemail=custemail;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCustPhoneNum(){
-        return this.custphonenum;
+    public String getAddress() {
+        return address;
     }
 
-    public void setCustPhoneNum(String custphonenum){
-        this.custphonenum=custphonenum;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getCustAddress(){
-        return this.custaddress;
+    public String getEmail() {
+        return email;
     }
 
-    public void setcustAddress(String custaddress){
-        this.custaddress=custaddress;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getCustPassword(){
-        return this.custpassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setCustPassword(String custpassword){
-        this.custpassword=custpassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getCustIcNum(){
-        return this.custicnum;
+    public String getPhoneNum() {
+        return phoneNum;
     }
 
-    public void setCustIcNum(String custicnum){
-        this.custicnum=custicnum;
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
     }
-
-    public String getCustPassport(){
-        return this.custpassport;
-    }
-
-    public void setCustPassport(String custpassport){
-        this.custpassport=custpassport;
-    }
-
 }

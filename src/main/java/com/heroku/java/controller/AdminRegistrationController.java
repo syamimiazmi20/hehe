@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/admin")
-public class AdminRegistrationController {
+public class adminRegistrationController {
 
     @Autowired
     private EmployeeRepository employeeRepository;

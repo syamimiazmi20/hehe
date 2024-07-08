@@ -10,8 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     Customer findByEmail(String email);
 
-    @Query(
-        "SELECT c FROM Customer c WHERE c.email = :email AND c.password = :password")
-        Customer authenticateCustomer(@Param("email") String email, @Param("password") String password);
-
+    @Query("SELECT c FROM Customer c WHERE c.email = :email AND c.password = :password")
+    Customer authenticateCustomer(@Param("email") String email, @Param("password") String password);
 }

@@ -1,11 +1,5 @@
 package com.heroku.java.controller;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,8 +18,7 @@ public class CustomerController {
 
     @GetMapping("/index")
     public String index() {
-        return "index"; // Refers to /src
-
+        return "index"; // Refers to /src/main/resources/templates/index.jsp
     }
 
     @GetMapping("/customerRegistration")
@@ -43,13 +36,11 @@ public class CustomerController {
             Model model) {
 
         Customer customer = new Customer(name, email, password, address, phone);
-        boolean isRegistered = customerRepository.registerCustomer(customer);
-
-        if (isRegistered) {
-            model.addAttribute("success", true);
+        try {
+            customerRepository.save(customer);
             return "redirect:/customerLogin"; // Refers to customerLogin.jsp
-        } else {
-            model.addAttribute("error", true);
+        } catch (Exception e) {
+            model.addAttribute("error", "An error occurred while registering the customer. Please try again.");
             return "customerRegistration";
         }
     }

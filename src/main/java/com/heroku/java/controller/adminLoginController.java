@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/admin")
 public class adminLoginController {
 
-    @GetMapping("/login")
-    public String showLoginForm() {
-        return "adminLogin";
-    }
+    
     @Autowired
     private EmployeeRepository employeeRepository;
 

@@ -1,8 +1,12 @@
 package com.heroku.java.controller;
 
+import java.util.List;
+
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,16 +17,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-@RestController
+@Controller
 @RequestMapping("/api/customers")
 public class CustomerController {
 
     @Autowired
     private CustomerRepository customerRepository;
 
-    @PostMapping("/customerRegister")
+    @PostMapping("/customerRegistration")
     public ResponseEntity<?> registerCustomer(@RequestBody Customer customer) {
         if (customerRepository.existsByEmail(customer.getEmail())) {
             return ResponseEntity.badRequest().body("Email already exists");
@@ -31,7 +33,7 @@ public class CustomerController {
         return ResponseEntity.ok(savedCustomer);
     }
 
-    @PostMapping("/login")
+    @PostMapping("/CustomerLogin")
     public ResponseEntity<?> loginCustomer(@RequestParam String email, @RequestParam String password) {
         Customer customer = customerRepository.findByEmailAndPassword(email, password);
         if (customer != null) {

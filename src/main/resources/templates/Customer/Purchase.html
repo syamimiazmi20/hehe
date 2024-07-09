@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Milk Purchase</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap">
+    <style>
+        /* Include your CSS styles here */
+    </style>
+</head>
+
+<body>
+    <header>  
+        <div class="header-left">
+            <div class="logo-container">
+                <img src="/images/logo.jpeg" alt="Dairy Ben Logo" class="logo">
+                <span class="brand-name">DairyBen</span>
+            </div>
+        </div>
+        <div class="date-time" id="date-time"></div>     
+        <button class="menu-button" onclick="toggleMenu()">☰</button>
+        <div class="menu-content" id="menuContent">
+            <a href="/viewCustomerProfile">View Account</a>
+            <a href="/logout">Log Out</a>
+        </div>
+    </header>
+
+    <div class="background-image"></div>
+
+    <div class="container">
+        <h1>Milk Purchase</h1>
+        <form action="/purchase" method="post" onsubmit="return validateForm()">
+            <input type="hidden" name="cust_id" th:value="${session.userID}">
+            <input type="hidden" name="production_id" th:value="${milkProduction.productionId}">
+
+            <div class="sections-row">
+                <div class="section">
+                    <h2>Customer Information</h2>
+                    <h3>Customer name: <span th:text="${session.userName}"></span></h3>
+                    <label for="customerId">Customer ID: <span th:text="${session.userID}"></span></label>
+                </div>
+
+                <div class="section">
+                    <h2>Milk Purchase</h2>
+                    <label for="availability">Availability: (liters left)</label>
+                    <input type="text" id="availability" name="availability" th:value="${milkProduction.amountBalance}" readonly>
+
+                    <label for="amountPurchase">Amount Purchase (liters):</label>
+                    <input type="number" id="amountPurchase" name="amountPurchase" min="0" step="0.1" required>
+
+                    <label id="pricePerLiter">Price per Liter: RM 3.00</label>
+
+                    <label for="totalPrice">Total Price:</label>
+                    <input type="number" id="totalPrice" name="totalPrice" readonly>
+                </div>
+
+                <div class="section">
+                    <h2>Shipping Method</h2>
+                    <label for="delivery">
+                        <input type="radio" id="delivery" name="shipping_type" value="delivery" onclick="showDeliveryFields()" checked>
+                        Delivery
+                    </label>
+                    <label for="pickup">
+                        <input type="radio" id="pickup" name="shipping_type" value="pickup" onclick="showPickupFields()">
+                        Pickup
+                    </label>
+                    <label for="con_phone">Contact number:</label>
+                    <input type="text" id="con_phone" name="con_phone">
+                </div>
+            </div>
+
+            <div id="deliveryFields">
+                <h3>Delivery Information</h3>
+                <label for="receiver_name">Receiver name:</label>
+                <input type="text" id="receiver_name" name="receiver_name">
+                <label for="send_address">Send address:</label>
+                <textarea id="send_address" name="send_address"></textarea>
+            </div>
+
+            <div id="pickupFields" style="display: none;">
+                <h3>Pickup Information</h3>
+                <label for="pickup_date">Pickup Date:</label>
+                <input type="date" id="pickup_date" name="pickup_date">
+                <label for="pickup_session">Available Pickup Time:</label>
+                <select id="pickup_session" name="pickup_session">
+                    <option value="morning">Morning (8am-12pm)</option>
+                    <option value="evening">Evening (2pm-6pm)</option>
+                </select>
+            </div>
+
+            <div class="section">
+                <h2>Payment</h2>
+                <div id="paymentDetails">
+                    <h3>Total Price: RM <span id="displayTotalPrice">0.00</span></h3>
+                </div>
+                <input type="hidden" name="total_price" id="hiddenTotalPrice">
+                <label for="payment_type">Choose Payment Method:</label>
+                <select id="payment_type" name="payment_type" onchange="togglePaymentOptions()">
+                    <option value="qr">QR Pay</option>
+                    <option value="onlinetransfer">Online Transfer</option>
+                </select>
+                <div id="qrOptions" class="qrOptions">
+                    <h3>QR Pay</h3>
+                    <img id="qrCode" src="/images/qr_code.png" alt="QR Code" style="max-width: 100px;">
+                    <p>Scan this QR to make a payment</p>
+                </div>
+                <div id="onlinetransferOptions" class="onlinetransferOptions" style="display: none;">
+                    <h3>Online Transfer</h3>
+                    <p>Account Number: 1234567890</p>
+                    <p>Bank: Maybank</p>
+                    <p>Name: Butterfly Agro Farm</p>
+                </div>
+            </div>
+
+            <input type="hidden" name="payment_date" th:value="${#dates.format(new java.util.Date(), 'yyyy-MM-dd')}">
+            <input type="submit" value="Submit Purchase">
+        </form>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Dairy Ben provides fresh, organic milk straight from our farm to your table.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/customerDashboard">Dashboard</a></li>
+                    <li><a href="/viewProfile">Profile</a></li>
+                    <li><a href="/milkPurchase">Purchase Milk</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@dairyben.com</p>
+                <p>Phone: (123) 456-7890</p>
+                <p>Address: 123 Milk Way, Dairy Town, DT 12345</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Dairy Ben by Bentley. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function updateDateTime() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric', 
+                hour: '2-digit', 
+                minute: '2-digit',
+                second: '2-digit'
+            };
+            document.getElementById('date-time').textContent = now.toLocaleDateString('en-US', options);
+        }
+
+        function toggleMenu() {
+            var menu = document.getElementById("menuContent");
+            menu.style.display = menu.style.display === "block" ? "none" : "block";
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.matches('.menu-button')) {
+                var menu = document.getElementById("menuContent");
+                if (menu.style.display === "block") {
+                    menu.style.display = "none";
+                }
+            }
+        }
+
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+
+        document.getElementById('amountPurchase').addEventListener('input', calculateTotal);
+
+        function calculateTotal() {
+            const amount = parseFloat(document.getElementById('amountPurchase').value) || 0;
+            const total = amount * 3.00;
+            document.getElementById('totalPrice').value = total.toFixed(2);
+            document.getElementById('displayTotalPrice').innerText = total.toFixed(2);
+            document.getElementById('hiddenTotalPrice').value = total.toFixed(2);
+        }
+
+        function showDeliveryFields() {
+            document.getElementById("deliveryFields").style.display = "block";
+            document.getElementById("pickupFields").style.display = "none";
+        }
+
+        function showPickupFields() {
+            document.getElementById("deliveryFields").style.display = "none";
+            document.getElementById("pickupFields").style.display = "block";
+        }
+
+        function togglePaymentOptions() {
+            const paymentType = document.getElementById("payment_type").value;
+            if (paymentType === "qr") {
+                document.getElementById("qrOptions").style.display = "block";
+                document.getElementById("onlinetransferOptions").style.display = "none";
+            } else {
+                document.getElementById("qrOptions").style.display = "none";
+                document.getElementById("onlinetransferOptions").style.display = "block";
+            }
+        }
+    </script>
+</body>
+
+</html>
